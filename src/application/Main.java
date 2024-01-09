@@ -1,5 +1,7 @@
 package application;
 
+import dao.DaoFactory;
+import dao.SellerDao;
 import entities.Department;
 import entities.Seller;
 
@@ -18,6 +20,8 @@ public class Main {
                 new Date(),
                 3000,
                 department);
+
+        SellerDao sellerDao = DaoFactory.createSellerDao();
 
         System.out.println(seller);
     }
