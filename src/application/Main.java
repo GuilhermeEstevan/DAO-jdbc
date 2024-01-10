@@ -28,5 +28,10 @@ public class Main {
         for (Seller obj : sellerList1) {
             System.out.println(obj);
         }
+
+        System.out.println("=== Test 4: Seller insert ===");
+        Seller newSeller = new Seller(0, "Greg", "greg@gmail.com", new Date(), 4000, department);
+        DaoFactory.createSellerDao().insert(newSeller);
+        System.out.println("Inserted: new id = " + newSeller.getId());
     }
 }
