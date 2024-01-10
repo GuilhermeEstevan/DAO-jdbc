@@ -40,7 +40,6 @@ public class SellerDaoJDBC implements SellerDao {
 
             if (rowsAffected > 0) {
                 resultSet = preparedStatement.getGeneratedKeys();
-                ;
                 if (resultSet.next()) {
                     int id = resultSet.getInt(1);
                     seller.setId(id);
@@ -83,7 +82,23 @@ public class SellerDaoJDBC implements SellerDao {
 
     @Override
     public void deleteById(int id) {
+        PreparedStatement preparedStatement = null;
+        try {
+            preparedStatement = connection.prepareStatement(
+                    "DELETE FROM seller "
+                            + "WHERE Id = ?");
+            preparedStatement.setInt(1, id);
+            int affectedRows = preparedStatement.executeUpdate();
 
+            if (affectedRows == 0) {
+                throw new DbException("Id not found!");
+            }
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(preparedStatement);
+        }
     }
 
     @Override
