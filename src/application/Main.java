@@ -47,16 +47,26 @@ public class Main {
 //        int idToDelete = 10;
 //        sellerDao.deleteById(idToDelete);
 
-        System.out.println("=== Test 7: Department Insert ===");
-        Department department = new Department(0, "Gym");
-        departmentDao.insert(department);
+//        System.out.println("=== Test 7: Department Insert ===");
+//        Department department = new Department(0, "Gym");
+//        departmentDao.insert(department);
+//
+//        System.out.println("=== Test 8: Department Update ===");
+//        department = new Department(5, "Hair");
+//        departmentDao.update(department);
+//
+//        System.out.println("=== Test 9: Department Delete ===");
+//        int idToDelete = 7;
+//        departmentDao.deleteById(idToDelete);
+//
 
-        System.out.println("=== Test 8: Department Update ===");
-        department = new Department(5, "Hair");
-        departmentDao.update(department);
+        System.out.println("=== Test 10: Department FindById ===");
+        Department department = departmentDao.findById(3);
+        System.out.println(department);
 
-        System.out.println("=== Test 9: Department Delete ===");
-        int idToDelete = 7;
-        departmentDao.deleteById(idToDelete);
+
+        System.out.println("=== Test 11: Department FindAll ===");
+        List<Department> departmentList = departmentDao.findAll();
+        departmentList.forEach(System.out::println);
     }
 }

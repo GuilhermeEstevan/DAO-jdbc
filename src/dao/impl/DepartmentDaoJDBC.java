@@ -7,6 +7,7 @@ import entities.Department;
 import entities.Seller;
 
 import java.sql.*;
+import java.util.ArrayList;
 import java.util.List;
 
 public class DepartmentDaoJDBC implements DepartmentDao {
@@ -101,20 +102,44 @@ public class DepartmentDaoJDBC implements DepartmentDao {
             preparedStatement.setInt(1, id);
             ResultSet resultSet = preparedStatement.executeQuery();
             if (resultSet.next()) {
-
+                Department department = new Department();
+                department.setId(resultSet.getInt("Id"));
+                department.setName(resultSet.getString("Name"));
+                return department;
             }
-
+            return null;
         } catch (SQLException e) {
             throw new DbException(e.getMessage());
         } finally {
             DB.closeStatement(preparedStatement);
         }
-        return null;
     }
 
     @Override
     public List<Department> findAll() {
-        return null;
+        PreparedStatement preparedStatement = null;
+        ResultSet resultSet = null;
+        List<Department> departmentList = new ArrayList<>();
+
+        try {
+            preparedStatement = connection.prepareStatement(
+                    "SELECT * FROM department");
+
+            resultSet = preparedStatement.executeQuery();
+            while (resultSet.next()) {
+                Department department = new Department();
+                department.setId(resultSet.getInt("Id"));
+                department.setName(resultSet.getString("Name"));
+                departmentList.add(department);
+            }
+            return departmentList;
+
+        } catch (SQLException e) {
+            throw new DbException(e.getMessage());
+        } finally {
+            DB.closeStatement(preparedStatement);
+            DB.closeResultSet(resultSet);
+        }
     }
 }
 
